@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'styles/material-theme' as *;
+html { color-scheme: light; }
+
+:root {
+  --kt-green: #2E5834;
+  --kt-black: #1D1D1D;
+  --kt-white: #FFFFFF;
+  --kt-grey: #ACACAC;
+  --kt-light-bg: #FBFBFB;
+  --kt-terra: #C57D5D;
+  --radius: 12px;
+  --gap-sm: 12px;
+  --gap-md: 16px;
+  --gap-lg: 24px;
+}
+:root { --header-h: 100px; } 
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: 'Poppins', system-ui, sans-serif; 
+  color: var(--kt-black);
+  background: var(--kt-light-bg);
+  padding-top: var(--header-h);
+  padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+}
+.mat-icon, .material-symbols-outlined {
+  font-family: 'Material Symbols Outlined' !important;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-weight: normal;
+  letter-spacing: normal;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}

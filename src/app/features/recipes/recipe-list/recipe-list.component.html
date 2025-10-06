@@ -1,0 +1,36 @@
+<section>
+  <div class="title-row">
+    <h2 class="section-title">{{ pageTitle() }}</h2>
+
+    <mat-button-toggle-group
+      [value]="addedSig() ? 'added' : 'all'"
+      (change)="onAddedToggle($event.value)"
+      aria-label="Filter recipes by ownership">
+      <mat-button-toggle value="all">All Recipes</mat-button-toggle>
+      <mat-button-toggle value="added">Added Recipes</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  @if (filtered(); as recipes) {
+    @if (recipes.length) {
+      <div class="grid">
+        @for (r of recipes; track r.id) {
+          <app-recipe-card
+            [recipe]="r"
+            (favoriteToggled)="onFavoriteToggled($event)">
+          </app-recipe-card>
+        }
+      </div>
+    } @else {
+      <p class="empty">No recipes found.</p>
+    }
+  }
+</section>
+
+@if (showTop) {
+  <button mat-fab class="to-top" aria-label="Back to top" (click)="scrollTop()">
+    <mat-icon class="material-symbols-outlined">arrow_upward</mat-icon>
+  </button>
+}

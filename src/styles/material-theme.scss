@@ -1,0 +1,23 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$kt-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary:  mat.$green-palette,
+    tertiary: mat.$orange-palette
+  ),
+  density: (scale: 0),
+  typography: (
+    brand-family:  'Poppins, system-ui, sans-serif',
+    plain-family:  'Poppins, system-ui, sans-serif',
+    bold-weight:   700,
+    medium-weight: 600,
+    regular-weight: 400
+  )
+));
+
+:root {
+  @include mat.all-component-themes($kt-theme);
+}

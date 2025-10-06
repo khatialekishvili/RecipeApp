@@ -1,0 +1,22 @@
+<article class="card-wrap">
+  <a class="link" [routerLink]="['/recipes', recipe.id]">
+    <div class="thumb">
+      <img [src]="recipe.thumbnailUrl || 'assets/placeholder.webp'" [alt]="recipe.title" loading="lazy" />
+      <button
+        type="button"
+        class="save"
+        [class.on]="recipe.favorite"
+        (click)="onToggleFavorite($event)"
+        aria-label="Save recipe">
+        <span class="material-symbols-outlined">
+          {{ recipe.favorite ? 'bookmark' : 'bookmark_border' }}
+        </span>
+        <span class="label">{{ recipe.favorite ? 'Saved' : 'Save' }}</span>
+      </button>
+    </div>
+    <div class="body">
+      <h4 class="title">{{ recipe.title }}</h4>
+      <p class="desc">{{ recipe.description }}</p>
+    </div>
+  </a>
+</article>

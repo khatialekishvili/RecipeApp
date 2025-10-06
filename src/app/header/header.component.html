@@ -1,0 +1,38 @@
+<header class="app-header">
+  <a class="brand" routerLink="/recipes" aria-label="Recipe World home">
+    <img src="assets/logo.svg" alt="Recipe World" />
+  </a>
+
+  @if (showSearch) {
+    <form class="search" role="search" (submit)="$event.preventDefault()">
+      <span class="material-symbols-outlined" aria-hidden="true">search</span>
+      <input
+        type="search"
+        [formControl]="searchCtrl"
+        placeholder="Search by dish, ingredient, …"
+        aria-label="Search recipes" />
+      @if (searchCtrl.value) {
+        <button type="button" class="clear" (click)="clearSearch()" aria-label="Clear search">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      }
+    </form>
+  }
+
+  <nav class="actions" aria-label="Header actions">
+    <a class="add" routerLink="/recipes/new">
+      <span class="plus">+</span><span>ADD A RECIPE</span>
+    </a>
+    <button
+      type="button"
+      class="bookmark"
+      [class.active]="favOn"
+      [attr.aria-pressed]="favOn"
+      (click)="toggleFav()"
+      aria-label="Show favorites only">
+      <span class="material-symbols-outlined">
+        {{ favOn ? 'bookmark' : 'bookmark_border' }}
+      </span>
+    </button>
+  </nav>
+</header>

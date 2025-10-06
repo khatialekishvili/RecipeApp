@@ -1,0 +1,68 @@
+@if (recipe$ | async; as r) {
+  <section class="detail">
+    <div class="container">
+      <div class="titlebar">
+        <button type="button" class="back-btn" [routerLink]="['/recipes']" aria-label="Go back">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+
+        <h1 class="title">{{ r.title }}</h1>
+
+        <button type="button" class="save" [class.on]="r.favorite"
+                (click)="toggleFavorite(r)"
+                [attr.aria-label]="r.favorite ? 'Unsave recipe' : 'Save recipe'">
+          <span class="material-symbols-outlined">
+            {{ r.favorite ? 'bookmark' : 'bookmark_border' }}
+          </span>
+          <span class="label">{{ r.favorite ? 'Saved' : 'Save' }}</span>
+        </button>
+      </div>
+
+      <p class="helper">{{ r.description }}</p>
+
+      <div class="cover">
+        @if (r.thumbnailUrl) { <img [src]="r.thumbnailUrl" [alt]="r.title" /> }
+      </div>
+
+      @if (r.isUser) {
+        <div class="actions">
+          <a class="btn" [routerLink]="['/recipes', r.id, 'edit']">Edit</a>
+          <button class="btn danger" (click)="openConfirmDelete(r)">Delete</button>
+        </div>
+      }
+
+      <h3>Ingredients</h3>
+      <ul>
+        @for (ing of r.ingredients; track $index) { <li>{{ ing }}</li> }
+      </ul>
+
+      <h3>Instructions</h3>
+      <p>{{ r.instructions }}</p>
+    </div>
+  </section>
+} @else {
+  <div class="loading">
+    <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+  </div>
+}
+
+<ng-template #confirmDeleteDialog>
+  <div class="dlg">
+    <button mat-icon-button class="x" mat-dialog-close aria-label="Close dialog">
+      <mat-icon class="material-symbols-outlined">close</mat-icon>
+    </button>
+
+    <h2 class="dlg-title">Delete this recipe?</h2>
+    <p class="dlg-text">
+      Are you sure you want to delete this recipe? This action cannot be undone.
+    </p>
+
+    <div class="dlg-actions">
+      <button mat-stroked-button class="btn-cancel" mat-dialog-close>Cancel</button>
+      <button mat-flat-button  class="btn-delete"
+              [disabled]="isDeleting" (click)="confirmDelete()">
+        Delete
+      </button>
+    </div>
+  </div>
+</ng-template>

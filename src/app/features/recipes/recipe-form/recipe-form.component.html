@@ -1,0 +1,84 @@
+<section class="page">
+  <mat-card class="card">
+    <h1 class="page-title">{{ id ? 'Edit a Recipe' : 'Add a Recipe' }}</h1>
+    <p class="page-subtitle">
+      Feeling like a kitchen Picasso? Add your recipe and show off your culinary creativity.
+    </p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Image URL (optional)</mat-label>
+        <input matInput formControlName="imageUrl" placeholder="https://…" autocomplete="off" />
+        @if (f.imageUrl.value) {
+          <button mat-icon-button matSuffix type="button" aria-label="Clear image URL"
+                  (click)="form.patchValue({ imageUrl: '' })">
+            <mat-icon>close</mat-icon>
+          </button>
+        }
+        <mat-hint>Paste a direct http/https link to an image.</mat-hint>
+        @if (f.imageUrl.touched && f.imageUrl.errors?.['url']) {
+          <mat-error>Must be a valid URL (http/https)</mat-error>
+        }
+      </mat-form-field>
+
+      <div class="or full">or</div>
+
+      <div class="dropwrap full" [class.has-image]="!!previewSrc">
+        @if (!previewSrc) {
+          <button mat-stroked-button color="primary" type="button" class="add-photo-btn" (click)="file.click()">
+            <mat-icon>add_a_photo</mat-icon> Add a photo
+          </button>
+          <input #file type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+        } @else {
+          <div class="preview">
+            <img [src]="previewSrc" alt="thumbnail preview" />
+            <button mat-button type="button" (click)="clearThumbnail()">
+              <mat-icon>close</mat-icon> Remove photo
+            </button>
+          </div>
+        }
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Recipe Title</mat-label>
+        <input matInput formControlName="title" maxlength="80" placeholder="Enter your recipe title" />
+        @if (f.title.touched && f.title.invalid) { <mat-error>Required (min 3)</mat-error> }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description" maxlength="120" placeholder="Short description" />
+        @if (f.description.touched && f.description.invalid) { <mat-error>Required</mat-error> }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Ingredients</mat-label>
+        <textarea matInput rows="6" formControlName="ingredients"
+                  placeholder="One per line: qty, measure, prep notes"></textarea>
+        <mat-hint>List one ingredient per line.</mat-hint>
+        @if (f.ingredients.touched && f.ingredients.invalid) { <mat-error>Required</mat-error> }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Instructions</mat-label>
+        <textarea matInput rows="8" formControlName="instructions" placeholder="Step-by-step…"></textarea>
+        <mat-hint>Break down steps clearly.</mat-hint>
+        @if (f.instructions.touched && f.instructions.invalid) { <mat-error>Required</mat-error> }
+      </mat-form-field>
+
+      <div class="actions full">
+        <button
+          mat-stroked-button
+          class="btn-cancel"
+          type="button"
+          [routerLink]="id ? ['/recipes', id] : ['/recipes']">
+          Cancel
+        </button>
+
+        <button mat-flat-button class="btn-submit" type="submit" [disabled]="form.invalid">
+          {{ id ? 'Update' : 'Submit Recipe' }}
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</section>

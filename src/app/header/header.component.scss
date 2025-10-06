@@ -1,0 +1,74 @@
+.app-header{
+  position: fixed; top:0; z-index:1000; display:flex; align-items:center;
+  justify-content:center;           
+  padding:11px 9px; background:#fff; border-bottom:1px solid #eee;
+  width: 100%; --search-w: 815px;                
+
+  .brand { margin-right: 26px; }
+
+  .search{
+    flex: 0 0 var(--search-w);   
+    width: var(--search-w);
+    max-width: 100%;
+    min-width: 0;                  
+
+    display:grid; grid-template-columns:44px 1fr 44px;
+    align-items:center;
+    height:52px; border-radius: 21px;
+    background: var(--kt-green, #2E5834); opacity: 0.7;
+    padding-inline:8px;  margin-right: 36px;
+     -webkit-appearance:none; -moz-appearance:none; appearance:none;
+
+    .material-symbols-outlined{ color:#fff; font-size:22px; display:grid; place-items:center; }
+    input{
+      border:0; outline:0; background:transparent; color:#fff; font-size:16px;
+      &::placeholder{ color: rgba(255,255,255,.75); }
+    }
+    .clear{
+      width:36px; height:36px; border:0; cursor:pointer;
+      background: rgba(255,255,255,.16);
+      border-radius:999px; display:grid; place-items:center; color:#fff;
+    }
+
+  }
+.search input::-webkit-search-cancel-button { display: none; }
+  .actions{
+    display:flex; align-items:center;
+    gap: 26px;                    
+
+    .add{
+      display:flex; align-items:center; gap:8px;
+      text-decoration:none; color: var(--kt-black, #1D1D1D);
+      font-weight:400; letter-spacing:.04em; text-transform:uppercase;
+      .plus{ font-weight:400; }
+    }
+    .bookmark{
+    width:36px; height:36px; border:0; background:transparent;
+    border-radius:8px; display:grid; place-items:center; cursor:pointer;
+    color: var(--kt-black, #1D1D1D);
+
+    .material-symbols-outlined{
+      font-size:24px;
+      font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
+    }
+
+    &.active{
+      color: var(--kt-green, #2E5834);
+      .material-symbols-outlined{
+        font-variation-settings:'FILL' 1,'wght' 600,'GRAD' 0,'opsz' 24;}}
+  }
+}}
+@media (max-width: 1000px) {
+  .app-header {
+    --search-w: 600px; padding: 10px 12px;
+    .search { margin-right: 20px; height: 48px; } .actions { gap: 18px; }
+  }
+}
+
+@media (max-width: 700px) {
+  .app-header {
+    flex-wrap: wrap; justify-content: space-between;
+    .brand { margin-right: 0; }
+    .search { order: 3; flex: 1 1 100%; width: 100%; margin: 10px 0 0; }
+  }
+}
