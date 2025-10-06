@@ -26,11 +26,11 @@ The project demonstrates clean architecture, Angular best practices, and practic
 
 
  ## How to Run the App
-1. Install dependencies
+1. Install dependencies -
 npm install
-2. Start the mock API
+2. Start the mock API -
 npm run api
-3. Start the Angular app
+3. Start the Angular app -
 npm start
 
 📝Run both commands in separate terminals. The API must be running for the recipe list to load.
